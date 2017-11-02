@@ -1,4 +1,5 @@
 #!/bin/env bash
+
 KEY= grep -v ^# /etc/keystone/keystone.conf | grep admin_token | awk -F "=" '{print $2}'
 export OS_TOKEN=$KEY
 export OS_URL=http://172.25.27.1:35357/v3
