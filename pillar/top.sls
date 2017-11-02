@@ -1,0 +1,3 @@
+base:
+  'controller':
+    - openstack.mysql
