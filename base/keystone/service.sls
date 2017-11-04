@@ -9,8 +9,13 @@ keystone_service:
     - defaults:
       BIND_ADDRESS: {{ pillar['BIND_ADDRESS'] }}
 
+keystone_db_sync:
+  file.managed:
+    - name: /tmp/keystone_db_sync.sh
+    - source: salt://keystone/files/keystone_db_sync.sh
+    - mode: 755
   cmd.run:
-    - name: sed -i.bak 's/admin_token = ADMIN_TOKEN/admin_token ='`openssl rand -hex 10`'/g' /etc/keystone/keystone.conf && su -s /bin/sh -c "keystone-manage db_sync" keystone && keystone-manage fernet_setup --keystone-user keystone --keystone-group keystone
+    - name: sh /tmp/keystone_db_sync.sh
 
 httpd_services:
     file.managed:

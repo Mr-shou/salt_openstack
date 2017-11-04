@@ -9,4 +9,4 @@ sql_init:
 
   cmd.run:
     - name: cd /tmp && sh mysql.sh
-    - creates: /tmp/mysql.sh
+#    - creates: /tmp/mysql.sh
