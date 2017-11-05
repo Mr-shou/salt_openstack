@@ -22,12 +22,6 @@ include:
 /etc/neutron/plugins/ml2/ml2_conf.ini:
   file.managed:
     - source: salt://neutron/files/ml2_conf.ini
-#    - template: jinja
-#    - defaults:
-#      neutron_db_passwd: {{ pillar['databases']['neutron']['password'] }}
-#      controller_ip: {{ pillar['info']['controller']['ip'] }}
-#      db_openstack_passwd: {{ pillar['databases']['openstack']['password'] }}
-#      nova_db_passwd: {{ pillar['databases']['nova']['password'] }}
 
 /etc/neutron/plugins/ml2/linuxbridge_agent.ini:
   file.managed:
@@ -47,15 +41,6 @@ include:
     - defaults:
       db_root_passwd: {{ pillar['databases']['root']['password'] }}
       controller_ip: {{ pillar['info']['controller']['ip'] }}
-
-#/etc/nova/nova.conf:
-#  file.managed:
-#    - source: salt://neutron/files/nova.conf
-#    - template: jinja
-#    - defaults:
-#      db_root_passwd: {{ pillar['databases']['root']['password'] }}
-#      controller_ip: {{ pillar['info']['controller']['ip'] }}
-
 
 neutron_finalize:
   cmd.run:

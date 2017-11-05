@@ -19,8 +19,6 @@ include:
       db_openstack_passwd: {{ pillar['databases']['openstack']['password'] }}
       db_root_passwd: {{ pillar['databases']['root']['password'] }}
       db_neutron_passwd: {{ pillar['databases']['neutron']['password'] }}
-#  cmd.run:
-#    - name: systemctl enable openstack-nova-api.service openstack-nova-consoleauth.service openstack-nova-scheduler.service openstack-nova-conductor.service openstack-nova-novncproxy.service && systemctl start openstack-nova-api.service openstack-nova-consoleauth.service openstack-nova-scheduler.service openstack-nova-conductor.service openstack-nova-novncproxy.service
 
 nova_populate_db:
   cmd.run:
@@ -29,12 +27,3 @@ nova_populate_db:
 nova_service:
   cmd.run:
     - name: systemctl enable openstack-nova-api.service openstack-nova-consoleauth.service openstack-nova-scheduler.service openstack-nova-conductor.service openstack-nova-novncproxy.service && systemctl start openstack-nova-api.service openstack-nova-consoleauth.service openstack-nova-scheduler.service openstack-nova-conductor.service openstack-nova-novncproxy.service
-
-
-#    - require:
-#      - file: /etc/nova/nova.conf
-#nova_api_service:
-#  service.running:
-#    - name: openstack-nova-api
-#    - enable: true
-#

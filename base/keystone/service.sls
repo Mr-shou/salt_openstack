@@ -11,14 +11,6 @@ keystone_service:
       controller_ip: {{ pillar['info']['controller']['ip'] }}
 
 keystone_db_sync:
-#  file.managed:
-#    - name: /etc/init.d/script
-#    - source: salt://bash/script
-#    - mode: 755
-#    - template: jinja
-#    - defaults:
-#      db_sync: {{ pillar['databases']['keystone']['db_sync'] }}
-#      passwd: {{ pillar['databases']['keystone']['password'] }}
   cmd.run:
     - name: /etc/init.d/script keystone_prerequisites && /etc/init.d/script keystone_ropulate
 

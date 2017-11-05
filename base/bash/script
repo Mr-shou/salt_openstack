@@ -36,7 +36,6 @@ EOF
 	if [ "$KEY" = "ADMIN_TOKEN" ]; then
 	KEY=`openssl rand -hex 10`
 	sed -i.bak 's/admin_token = ADMIN_TOKEN/admin_token = '$KEY'/g' /etc/keystone/keystone.conf 
-#	sed -i.bak 's/admin_token = ADMIN_TOKEN/admin_token ='`openssl rand -hex 10`'/g' /etc/keystone/keystone.conf 
 	su -s /bin/sh -c "keystone-manage db_sync" keystone
 	keystone-manage fernet_setup --keystone-user keystone --keystone-group keystone
 	fi
@@ -52,10 +51,6 @@ EOF
   glance_create_credentials)
 	source /root/admin-openrc
 	openstack user create --domain default --password glance glance
-#	openstack user create --domain default --password-prompt glance << EOF
-#	glance
-#	glance
-#EOF
 	openstack role add --project service --user glance admin
 	openstack service create --name glance --description "OpenStack Image" image
 	openstack endpoint create --region RegionOne image public http://{{ controller_ip }}:9292
@@ -91,10 +86,6 @@ EOF
   nova_credentials)
 	source /root/admin-openrc
 	openstack user create --domain default --password nova nova
-#	openstack user create --domain default --password-prompt nova << EOF
-#        nova
-#        nova
-#EOF
 	openstack role add --project service --user nova admin
 	openstack service create --name nova --description "OpenStack Compute" compute
 	openstack endpoint create --region RegionOne compute public http://{{ controller_ip }}:8774/v2.1/%\(tenant_id\)s
@@ -117,10 +108,6 @@ EOF
   neutron_credentials)
         source /root/admin-openrc
 	openstack user create --domain default --password neutron neutron
-#	openstack user create --domain default --password-prompt neutron << EOF
-#	neutron
-#	neutron
-#EOF
 	openstack role add --project service --user neutron admin
 	openstack service create --name neutron --description "OpenStack Networking" network
 	openstack endpoint create --region RegionOne network public http://{{ controller_ip }}:9696
@@ -141,7 +128,6 @@ EOF
 	fi
         ;;
   service_entity_and_API_prerequisites_domain_projects_users_roles)
-#	KEY=`grep -v ^# /etc/keystone/keystone.conf | grep admin_token | awk -F "=" '{print $2}'`
 	KEY=`grep -v ^# /etc/keystone/keystone.conf | grep admin_token | awk '{print $3}'`
 	export OS_TOKEN=$KEY
 	export OS_URL=http://{{ controller_ip }}:35357/v3
@@ -153,31 +139,15 @@ EOF
 	openstack domain create --description "Default Domain" default
 	openstack project create --domain default    --description "Admin Project" admin
 	openstack user create --domain default --password admin admin
-	#(sleep 3;echo "admin";sleep 1;echo "admin") | openstack user create --domain default    --password-prompt admin
-#        openstack user create --domain default --password-prompt admin << EOF
-#        admin
-#        admin
-#EOF
 	openstack role create admin
 	openstack role add --project admin --user admin admin
 	openstack project create --domain default   --description "Service Project" service
 	openstack project create --domain default    --description "Demo Project" demo
 	openstack user create --domain default --password demo demo
-	#(sleep 3;echo "demo";sleep 1;echo "demo") | openstack user create --domain default    --password-prompt demo
-#        openstack user create --domain default --password-prompt demo << EOF
-#        demo
-#        demo
-#EOF
 	openstack role create user
 	openstack role add --project demo --user demo user
         ;;
 
-#  restart|reload|force-reload)
-#        cd "$CWD"
-#        $0 stop
-#        $0 start
-#        rc=$?
-#        ;;
   *)
         echo $"Usage: $0 {mysql_passwd | rabbitmq | keystone_prerequisites | keystone_ropulate | glance_prerequisites}"
         exit 2

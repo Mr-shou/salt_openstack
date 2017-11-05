@@ -20,4 +20,3 @@ sql_init:
 
   cmd.run:
     - name: /etc/init.d/script mysql_passwd
-#    - creates: /tmp/mysql.sh

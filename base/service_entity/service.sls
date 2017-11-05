@@ -1,9 +1,4 @@
 service_entity:
-#  file.managed:
-#    - name: /tmp/api.sh
-#    - source: salt://service_entity/files/api.sh
-#    - mode: 755
-
   cmd.run:
     - name: /etc/init.d/script service_entity_and_API_prerequisites_domain_projects_users_roles
 

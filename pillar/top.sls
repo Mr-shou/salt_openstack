@@ -5,3 +5,4 @@ base:
     - openstack.comput_info
     - openstack.chronyd_info
     - openstack.user_info
+    - openstack.yum_info

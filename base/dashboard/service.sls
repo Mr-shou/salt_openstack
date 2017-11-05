@@ -12,8 +12,3 @@ include:
 dashboard_service:
   cmd.run:
     - name: systemctl restart httpd.service memcached.service
-#  service.running:
-#    - name: 
-#    - enable: true
-#    - require:
-#      - file: /etc/my.cnf.d/openstack.cnf
