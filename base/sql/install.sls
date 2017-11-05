@@ -10,4 +10,4 @@ sql_install:
     - source: salt://sql/files/openstack.cnf
     - template: jinja
     - defaults:
-      BIND_ADDRESS: {{ pillar['BIND_ADDRESS'] }}
+      controller_ip: {{ pillar['info']['controller']['ip'] }}

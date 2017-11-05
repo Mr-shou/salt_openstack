@@ -1,26 +1,17 @@
 base:
-  'controller':
-#    - ntp.service
-#    - openstack.install
-#    - sql.init
-#    - rabbitmq.service
-#    - memcached.service
-#    - keystone.service
-#    - api_endpoints.service
+  'server1':
+    - ntp.service
+    - openstack.install
+    - sql.init
+    - rabbitmq.service
+    - memcached.service
+    - keystone.service
+    - service_entity.service
     - glance.service
+    - nova.services
+    - neutron.services
+    - dashboard.service
+  'server2':
+    - ntp.service
+    - comput_node.service
 
-
-
-
-
-
-
-
-
-
-#  'comput':
-#    - keepalived.service
-#    - haproxy.service
-#  'roles:nginx':
-#    - match: grain
-#    - nginx.service
