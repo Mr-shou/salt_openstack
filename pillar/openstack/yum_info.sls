@@ -1,4 +1,4 @@
 yum:
   info:
-    baseurl: http://172.25.27.250/mitaka/mitaka/
+    baseurl: http://172.25.24.250/mitaka
     gpgcheck: 0
